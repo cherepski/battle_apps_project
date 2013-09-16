@@ -1,0 +1,7 @@
+Django==1.5.2
+psycopg2==2.5.1
+Unipath==1.0
+South==0.8.2
+Pillow==2.1.0
+django-tastypie==0.10.0
+mimeparse==0.1.3
