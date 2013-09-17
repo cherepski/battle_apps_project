@@ -14,6 +14,6 @@ class ProfileResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
-        queryset = Profile.objects.all()
+        queryset = Profile.objects.all()[:100]
         allowed_methods = ['get']
         resource_name = 'profile'
