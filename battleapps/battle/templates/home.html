@@ -14,12 +14,28 @@
 <body>
     {% verbatim %}
     <script type="text/x-handlebars">
-        {{#each item in objects}}
-            <img {{bind-attr src=item.avatar}} class="img-rounded">
-        {{/each}}
+        <div class="on_deck">
+            <div class="jcarousel_left">
+                <ul>
+                    {{#each item in objects}}
+                        <li><img {{bind-attr src=item.avatar}} class="img-rounded"></li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="jcarousel_right">
+                <ul>
+                    {{#each item in objects}}
+                        <li><img {{bind-attr src=item.avatar}} class="img-rounded"></li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        {{view App.jQueryCarouselView}}
     </script>
     {% endverbatim %}
     <script src='{% static "js/libs/jquery-1.10.2.min.js" %}'></script>
+    <script src='{% static "js/libs/jquery.jcarousel.min.js" %}'></script>
     <script src='{% static "js/libs/handlebars-1.0.0.js" %}'></script>
     <script src='{% static "js/libs/ember.prod.js" %}'></script>
     <script src='{% static "js/libs/ember-data.min.js" %}'></script>

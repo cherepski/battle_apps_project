@@ -2,6 +2,34 @@ body {
     background: url('../img/noisy_bg.png');
 }
 
-.ember-application {
-    background: url('../img/noisy_bg.png');
+.clear {
+    clear: both;
+}
+
+.on_deck {
+    margin: 0 auto;
+}
+
+.jcarousel_left, .jcarousel_right {
+    position: relative;
+    overflow: hidden;
+    /* You need at least a height, adjust this to your needs */
+    height: 120px;
+    width: 390px;
+    float: left;
+}
+
+.jcarousel_left ul, .jcarousel_right ul {
+    width: 20000em;
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jcarousel_left li, .jcarousel_right li {
+    float: left;
+    margin: 0 5px;
+    width: 120px;
+    height: 120px;
 }
