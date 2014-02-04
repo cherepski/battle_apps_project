@@ -8,24 +8,34 @@ STATUS_CHOICES = (('pending', 'pending'), ('allow', 'allow'))
 
 DEFAULT_MALE = static('img/male.jpg')
 DEFAULT_FEMALE = static('img/female.jpg')
+DEFAULT_IMAGES = [DEFAULT_MALE, DEFAULT_FEMALE]
 
 class Profile(TimeStampedModel):
     user = models.OneToOneField(User)
-    avatar = models.ImageField(upload_to="avatars/%Y/%m/%d", blank=True)
+    avatar = models.ForeignKey('Avatar', blank=True, null=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=6)
-    avatar_status = models.CharField(choices=STATUS_CHOICES, default='allow', max_length=100)
 
     def save(self, *args, **kwargs):
-        if self.avatar:
-            if self.avatar != DEFAULT_MALE and self.avatar != DEFAULT_FEMALE:
-                self.avatar_status = 'pending'
-            else:
-                self.avatar_status = 'allow'
-        else:
-            self.avatar_status = 'allow'
+        if not self.avatar:
+            avatar = Avatar()
+            avatar.status = 'allow'
             if self.gender == 'male':
-                self.avatar = DEFAULT_MALE
+                avatar.image = DEFAULT_MALE
             else:
-                self.avatar = DEFAULT_FEMALE
+                avatar.image = DEFAULT_FEMALE
+            self.avatar = avatar.save()
 
         super(Profile, self).save(*args, **kwargs)
+
+class Avatar(TimeStampedModel):
+    image = models.ImageField(upload_to="avatar/%Y/%m/%d", blank=True)
+    status = models.CharField(choices=STATUS_CHOICES, default='allow', max_length=100)
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            if any(self.image == DEFAULT_IMAGE for DEFAULT_IMAGE in DEFAULT_IMAGES):
+                self.status = 'allow'
+            else:
+                self.status = 'pending'
+
+        super(Avatar, self).save(*args, **kwargs)

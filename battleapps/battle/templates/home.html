@@ -2,46 +2,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Booty Battle App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='{% static "bootstrap/css/bootstrap.min.css" %}' rel="stylesheet" media="screen">
-    <link href='{% static "css/base.css" %}' rel="stylesheet" media="screen">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Booty Battle App</title>
+    <link rel="stylesheet" href='{% static "bootstrap-3.1.0-dist/dist/css/bootstrap.min.css" %}'>
+
+     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src='{% static "bootstrap/js/html5shiv.js" %}'></script>
-        <script src='{% static "bootstrap/js/respond.min.js" %}'></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+	<script src='{% static "js/lib/jquery-1.10.2.min.js" %}'></script>
+    <script src='{% static "bootstrap-3.1.0-dist/dist/js/bootstrap.min.js" %}'></script>
+    <script type="text/javascript">
+        var Battle = (function() {
+            function Battle() {
+                this._battle_left = "{{ battle_left.url }}";
+                this._battle_right = "{{ battle_right.url }}";
+            };
+
+            Battle.prototype.getLeftBattle = function() {
+                return this._battle_left;
+            };
+
+            Battle.prototype.getRightBattle = function() {
+                return this._battle_right;
+            };
+
+            Battle.prototype.setLeftBattle = function(image) {
+                this._battle_left = image;
+            };
+
+            Battle.prototype.setRightBattle = function(image) {
+                this_battle_right = image;
+            };
+
+            Battle.prototype.reload = function() {
+                this.setLeftBattle = "API CALL";
+                this.setRightBattle = "API CALL EXCLUDE LEFT BATTLE";
+            };
+
+            return Battle;
+        })();
+        
+        $(document).ready(function() {
+            $("img").on({
+                'click': function() {
+                    Battle.reload();
+                }
+            });
+        });
+    </script>
 </head>
 <body>
-    {% verbatim %}
-    <script type="text/x-handlebars">
-        <div class="on_deck">
-            <div class="jcarousel_left">
-                <ul>
-                    {{#each item in objects}}
-                        <li><img {{bind-attr src=item.avatar}} class="img-rounded"></li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="jcarousel_right">
-                <ul>
-                    {{#each item in objects}}
-                        <li><img {{bind-attr src=item.avatar}} class="img-rounded"></li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="clear"></div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" style="font-size: 20px;" data-toggle="dropdown">Booty Battle App <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a style="font-size: 18px" href="#">Boobie Battle App</a></li>
+                        <li><a style="font-size: 18px" href="#">Body Battle App</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        {{view App.jQueryCarouselView}}
-    </script>
-    {% endverbatim %}
-    <script src='{% static "js/libs/jquery-1.10.2.min.js" %}'></script>
-    <script src='{% static "js/libs/jquery.jcarousel.min.js" %}'></script>
-    <script src='{% static "js/libs/handlebars-1.0.0.js" %}'></script>
-    <script src='{% static "js/libs/ember.prod.js" %}'></script>
-    <script src='{% static "js/libs/ember-data.min.js" %}'></script>
-    <script src='{% static "js/application.js" %}'></script>
-    <script src='{% static "js/router.js" %}'></script>
-    <script src='{% static "js/models/battle.js" %}'></script>
-    <script src='{% static "bootstrap/js/bootstrap.min.js" %}'></script>
+    </nav>
+    <div class="container">
+        <div class="battle_wrapper">
+            <div class="col-md-5">
+                <img class="img-responsive img-rounded" style="max-width: 100%; height: auto;" src="{% static "img/dog1.jpg" %}"/>
+                <div class="btn-group btn-block" style="margin: 5px 0;">
+                    <button type="button" style="width: 85%;" class="btn btn-success">Win</button>
+                    <button type="button" style="width: 15%;" class="btn btn-danger">Flag</button>
+                </div>
+            </div>
+            <h2 class="col-md-1 text-center">
+                vs
+            </h2>
+            <div class="col-md-5">
+                <img class="img-responsive img-rounded" style="max-width: 100%; height: auto;" src="{% static "img/dog2.jpg" %}"/>
+                <div class="btn-group btn-block" style="margin: 5px 0;">
+                    <button type="button" style="width: 85%;" class="btn btn-success">Win</button>
+                    <button type="button" style="width: 15%;" class="btn btn-danger">Flag</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
 </body>
 </html>

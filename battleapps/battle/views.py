@@ -1,4 +1,8 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
+from django.views.generic.base import View
+from battle.models import Battle
 
-def home(request):
-    return render_to_response('home.html')
+class Index(View):
+    def get(self, request):
+        battle = Battle.battle()
+        return render(request, 'home.html', battle)
